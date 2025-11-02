@@ -1,4 +1,4 @@
-## WEB PROJECTS with JAVA
+## WEB PROJECTS
 
 This repository contains projects suggested by Professor by <a href="https://github.com/davidbuzatto">David Buzatto</a> from the class IDSW.
 
