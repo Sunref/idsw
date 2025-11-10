@@ -1,5 +1,69 @@
-/PROJ01/Projeto/LocacaoDVDs/nbproject/private/
-/PROJ01/Projeto/LocacaoDVDs/build/
-/PROJ01/Projeto/LocacaoDVDs/dist/
-/PROJ01/Projeto/LocacaoDVDs/src/java/cadastroclientes/jdbc/
-/PROJ01/Projeto/LocacaoDVDs/nbproject/*
+########################################
+# Java
+########################################
+Java/Projeto/LocacaoDVDs/src/java/locacao_dvds/jdbc/
+*.class
+*.jar
+*.war
+*.ear
+/build/
+/dist/
+/target/
+/bin/
+nbproject/private/
+
+# IDEs
+*.iml
+*.ipr
+*.iws
+
+# Logs / Temporários Java
+*.log
+*.tmp
+*.temp
+*.old
+*.save
+*.swo
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos sensíveis
+.env
+*.key
+*.pem
+*.crt
+*.p12
+*.jks
+
+# Uploads locais
+uploads/
+
+
+########################################
+# Ruby on Rails
+########################################
+
+# Logs Rails
+/log/*
+!/log/.keep
+
+# Temporários Rails
+/tmp/*
+!/tmp/.keep
+
+# ActiveStorage local
+/storage/*
+!/storage/.keep
+
+# Bundler
+/.bundle
+/vendor/bundle
+
+# Debug
+.byebug_history
+
+# DB SQLite (caso nunca use)
+/db/*.sqlite3
+/db/*.sqlite3-journal
