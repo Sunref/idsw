@@ -351,7 +351,7 @@ DEPENDENCIES
   kamal
   mysql2 (~> 0.5)
   puma (>= 5.0)
-  rails (~> 8.1.1)
+  rails (~> 8.1.0)
   rubocop-rails-omakase
   solid_cable
   solid_cache

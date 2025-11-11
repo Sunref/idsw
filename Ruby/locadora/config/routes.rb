@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  get "usuarios/index"
-  get "usuarios/show"
-  get "usuarios/new"
-  get "usuarios/edit"
+  get "cliente/index"
+  get "cliente/show"
+  get "cliente/create"
+  get "cliente/update"
+  get "cliente/destroy"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
