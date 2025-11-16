@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Old Store Media - <%= yield(:title) || 'Locação' %></title>
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "application" %>
+  <%= stylesheet_link_tag "main" %>
+  <%= javascript_importmap_tags %>
+</head>
+<body>
+  <!-- Navbar Lateral -->
+  <div class="navbar">
+    <div class="navbar-header">
+      <div class="navbar-logo">
+        <div class="logo-icon">
+          <%= image_tag "logo.png", alt: "Logo" %>
+        </div>
+        <div>
+          <div class="navbar-title">Old Store Media</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-menu">
+      <div class="menu-section">
+        <div class="menu-section-title">Principal</div>
+        <%= link_to root_path, class: "menu-item" do %>
+          <div class="menu-item-icon" style="background: linear-gradient(135deg, rgba(64, 156, 255, 0.2) 0%, rgba(152, 179, 255, 0.2) 100%);">
+            📊
+          </div>
+          <span>Dashboard</span>
+        <% end %>
+      </div>
+
+      <div class="menu-section">
+        <div class="menu-section-title">Gestão</div>
+
+        <%= link_to cliente_index_path, class: "menu-item" do %>
+          <div class="menu-item-icon" style="background: linear-gradient(135deg, rgba(64, 156, 255, 0.2) 0%, rgba(152, 179, 255, 0.2) 100%);">
+            👥
+          </div>
+          <span>Clientes</span>
+        <% end %>
+
+        <%= link_to midium_index_path, class: "menu-item" do %>
+          <div class="menu-item-icon" style="background: linear-gradient(135deg, rgba(64, 156, 255, 0.2) 0%, rgba(152, 179, 255, 0.2) 100%);">
+            🎬
+          </div>
+          <span>Catálogo de Mídias</span>
+        <% end %>
+
+        <%= link_to locacao_index_path, class: "menu-item" do %>
+          <div class="menu-item-icon" style="background: linear-gradient(135deg, rgba(64, 156, 255, 0.2) 0%, rgba(152, 179, 255, 0.2) 100%);">
+            📅
+          </div>
+          <span>Locações</span>
+        <% end %>
+
+        <%= link_to ator_index_path, class: "menu-item" do %>
+          <div class="menu-item-icon" style="background: linear-gradient(135deg, rgba(64, 156, 255, 0.2) 0%, rgba(152, 179, 255, 0.2) 100%);">
+            🎭
+          </div>
+          <span>Atores</span>
+        <% end %>
+      </div>
+
+      <div class="menu-section">
+        <div class="menu-section-title">Estoque</div>
+
+        <%= link_to exemplar_index_path, class: "menu-item" do %>
+          <div class="menu-item-icon" style="background: linear-gradient(135deg, rgba(64, 156, 255, 0.2) 0%, rgba(152, 179, 255, 0.2) 100%);">
+            💿
+          </div>
+          <span>Exemplares</span>
+        <% end %>
+
+        <%= link_to genero_index_path, class: "menu-item" do %>
+          <div class="menu-item-icon" style="background: linear-gradient(135deg, rgba(64, 156, 255, 0.2) 0%, rgba(152, 179, 255, 0.2) 100%);">
+            🏷️
+          </div>
+          <span>Gêneros</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Desktop / Conteúdo Principal -->
+  <div class="desktop">
+    <div class="window active">
+      <div class="window-titlebar">
+        <div class="window-title">
+          <div class="window-icon" style="background: linear-gradient(135deg, rgba(64, 156, 255, 0.2) 0%, rgba(152, 179, 255, 0.2) 100%);">
+            <%= yield(:icon) || '📄' %>
+          </div>
+          <span><%= yield(:window_title) || 'Conteúdo' %></span>
+        </div>
+      </div>
+
+      <div class="window-content">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+
+  <div id="statusbar">
+    <%= button_tag "⏻ Sair", id: "logout-btn", onclick: "window.location.href='#{destroy_session_path}'" %>
+  </div>
+</body>
+</html>
