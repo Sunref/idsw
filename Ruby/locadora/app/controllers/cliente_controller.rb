@@ -1,35 +1,53 @@
 class ClienteController < ApplicationController
-	def index
-		@clientes = Cliente.all
-		render json: @clientes
+ before_action :set_cliente, only: %i[ show edit update destroy ]
+
+  def index
+    @clientes = Cliente.all.order(:id)
   end
 
-   def show
-	  @cliente = Cliente.find(params[:id])
-	  render json: @cliente
-   end
+  def show
+  end
+
+  def new
+    @cliente = Cliente.new
+    @cidades = Cidade.all
+  end
+
+  def edit
+    @cidades = Cidade.all
+  end
 
   def create
-   	@cliente = Cliente.new(cliente_params)
+    @cliente = Cliente.new(cliente_params)
     if @cliente.save
-       render json: @cliente
+      redirect_to @cliente, notice: 'Cliente criado com sucesso.'
     else
-       render json: @cliente.errors, status: :unprocessable_entity
+      @cidades = Cidade.all
+      render :new
     end
-   end
+  end
 
-   def update
-   	@cliente = Cliente.find(params[:id])
+  def update
     if @cliente.update(cliente_params)
-       render json: @cliente
+      redirect_to @cliente, notice: 'Cliente atualizado com sucesso.'
     else
-       render json: @cliente.errors, status: :unprocessable_entity
+      @cidades = Cidade.all
+      render :edit
     end
-   end
+  end
 
-   def destroy
-	   @cliente = Cliente.find(params[:id])
-	   @cliente.destroy
-	   head :no_content
-   end
+  def destroy
+    @cliente.destroy
+    redirect_to clientes_url, notice: 'Cliente removido.'
+  end
+
+  private
+
+  def set_cliente
+    @cliente = Cliente.find(params[:id])
+  end
+
+  def cliente_params
+    params.require(:cliente).permit(:nome, :sobrenome, :data_nascimento, :cpf, :email, :logradouro, :numero, :bairro, :cep, :cidade_id)
+  end
 end
