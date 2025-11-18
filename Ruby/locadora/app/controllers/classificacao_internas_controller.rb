@@ -1,70 +1,53 @@
 class ClassificacaoInternasController < ApplicationController
-  before_action :set_classificacao_interna, only: %i[ show edit update destroy ]
+  before_action :set_classificacao_interna, only: %i[show update destroy]
 
-  # GET /classificacao_internas or /classificacao_internas.json
+  # GET /classificacao_internas
   def index
-    @classificacao_internas = ClassificacaoInterna.all
+    classificacoes = ClassificacaoInterna.all
+    render json: classificacoes
   end
 
-  # GET /classificacao_internas/1 or /classificacao_internas/1.json
+  # GET /classificacao_internas/1
   def show
+    render json: @classificacao_interna
   end
 
-  # GET /classificacao_internas/new
-  def new
-    @classificacao_interna = ClassificacaoInterna.new
-  end
-
-  # GET /classificacao_internas/1/edit
-  def edit
-  end
-
-  # POST /classificacao_internas or /classificacao_internas.json
+  # POST /classificacao_internas
   def create
-    @classificacao_interna = ClassificacaoInterna.new(classificacao_interna_params)
+    classificacao = ClassificacaoInterna.new(classificacao_interna_params)
 
-    respond_to do |format|
-      if @classificacao_interna.save
-        format.html { redirect_to @classificacao_interna, notice: "Classificacao interna was successfully created." }
-        format.json { render :show, status: :created, location: @classificacao_interna }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @classificacao_interna.errors, status: :unprocessable_entity }
-      end
+    if classificacao.save
+      render json: classificacao, status: :created
+    else
+      render json: classificacao.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /classificacao_internas/1 or /classificacao_internas/1.json
+  # PATCH/PUT /classificacao_internas/1
   def update
-    respond_to do |format|
-      if @classificacao_interna.update(classificacao_interna_params)
-        format.html { redirect_to @classificacao_interna, notice: "Classificacao interna was successfully updated.", status: :see_other }
-        format.json { render :show, status: :ok, location: @classificacao_interna }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @classificacao_interna.errors, status: :unprocessable_entity }
-      end
+    if @classificacao_interna.update(classificacao_interna_params)
+      render json: @classificacao_interna, status: :ok
+    else
+      render json: @classificacao_interna.errors, status: :unprocessable_entity
     end
   end
 
-  # DELETE /classificacao_internas/1 or /classificacao_internas/1.json
+  # DELETE /classificacao_internas/1
   def destroy
     @classificacao_interna.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to classificacao_internas_path, notice: "Classificacao interna was successfully destroyed.", status: :see_other }
-      format.json { head :no_content }
-    end
+    head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_classificacao_interna
-      @classificacao_interna = ClassificacaoInterna.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def classificacao_interna_params
-      params.fetch(:classificacao_interna, {})
-    end
+  def set_classificacao_interna
+    @classificacao_interna = ClassificacaoInterna.find(params[:id])
+  end
+
+  def classificacao_interna_params
+    params.require(:classificacao_interna).permit(
+      :nome,
+      :descricao
+    ) # AJUSTAR CONFORME TABELA
+  end
 end
