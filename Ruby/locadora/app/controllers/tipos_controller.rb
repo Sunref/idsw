@@ -38,12 +38,11 @@ class TiposController < ApplicationController
   end
 
   private
-
     def set_tipo
       @tipo = Tipo.find(params[:id])
     end
 
     def tipo_params
-      params.require(:tipo).permit(:nome, :descricao) # AJUSTAR CONFORME TABELA
+      params.require(:tipo).permit(:nome, :descricao)
     end
 end

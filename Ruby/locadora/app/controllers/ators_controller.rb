@@ -38,12 +38,11 @@ class AtorsController < ApplicationController
   end
 
   private
-
   def set_ator
     @ator = Ator.find(params[:id])
   end
 
   def ator_params
-    params.require(:ator).permit(:nome)  # AJUSTAR CONFORME TABELA
+    params.require(:ator).permit(:nome, :sobrenome, :data_estreia)
   end
 end

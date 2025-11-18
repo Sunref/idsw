@@ -39,16 +39,11 @@ class ClassificacaoEtariaController < ApplicationController
   end
 
   private
-
   def set_classificacao_etarium
     @classificacao_etarium = ClassificacaoEtarium.find(params[:id])
   end
 
   def classificacao_etarium_params
-    params.require(:classificacao_etarium).permit(
-      :descricao,
-      :sigla,
-      :codigo
-    ) # AJUSTAR CONFORME TABELA
+    params.require(:classificacao_etarium).permit(:descricao)
   end
 end

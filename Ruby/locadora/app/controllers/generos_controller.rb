@@ -39,12 +39,11 @@ class GenerosController < ApplicationController
   end
 
   private
-
   def set_genero
     @genero = Genero.find(params[:id])
   end
 
   def genero_params
-    params.require(:genero).permit(:nome) # AJUSTAR CONFORME TABELA
+    params.require(:genero).permit(:descricao)
   end
 end

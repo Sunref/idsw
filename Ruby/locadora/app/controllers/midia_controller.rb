@@ -38,7 +38,6 @@ class MidiaController < ApplicationController
   end
 
   private
-
     def set_midium
       @midium = Midium.find(params[:id])
     end
@@ -46,11 +45,15 @@ class MidiaController < ApplicationController
     def midium_params
       params.require(:midium).permit(
         :titulo,
-        :descricao,
         :ano_lancamento,
-        :duracao,
+        :codigo_barras,
+        :duracao_em_minutos,
+        :ator_principal,
+        :ator_coadjuvante,
+        :genero_id,
         :classificacao_etaria_id,
-        :genero_id
-      ) # AJUSTAR CONFORME TABELA
+        :tipo_id,
+        :classificacao_interna_id
+      )
     end
 end

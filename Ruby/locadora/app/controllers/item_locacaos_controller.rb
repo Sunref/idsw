@@ -38,18 +38,14 @@ class ItemLocacaosController < ApplicationController
   end
 
   private
+  def set_item_locacao
+    @item_locacao = ItemLocacao.find_by!(
+      locacao_id: params[:locacao_id],
+      exemplar_codigo_interno: params[:exemplar_codigo_interno]
+    )
+  end
 
-    def set_item_locacao
-      @item_locacao = ItemLocacao.find(params[:id])
-    end
-
-    def item_locacao_params
-      params.require(:item_locacao).permit(
-        :locacao_id,
-        :exemplar_id,
-        :valor,
-        :data_devolucao,
-        :multa
-      ) # AJUSTAR CONFORME TABELA
-    end
+  def item_locacao_params
+    params.require(:item_locacao).permit(:locacao_id, :exemplar_codigo_interno, :valor)
+  end
 end

@@ -39,13 +39,12 @@ class EstadosController < ApplicationController
   end
 
   private
-
   def set_estado
     @estado = Estado.find(params[:id])
   end
 
   # strong params
   def estado_params
-    params.require(:estado).permit(:nome, :sigla) # AJUSTAR CONFORME TABELA
+    params.require(:estado).permit(:nome, :sigla)
   end
 end

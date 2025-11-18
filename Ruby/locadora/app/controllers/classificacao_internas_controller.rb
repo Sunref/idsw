@@ -39,15 +39,11 @@ class ClassificacaoInternasController < ApplicationController
   end
 
   private
-
   def set_classificacao_interna
     @classificacao_interna = ClassificacaoInterna.find(params[:id])
   end
 
   def classificacao_interna_params
-    params.require(:classificacao_interna).permit(
-      :nome,
-      :descricao
-    ) # AJUSTAR CONFORME TABELA
+    params.require(:classificacao_interna).permit(:descricao, :valor_aluguel)
   end
 end

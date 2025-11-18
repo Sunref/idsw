@@ -38,12 +38,11 @@ class CidadesController < ApplicationController
   end
 
   private
-
   def set_cidade
     @cidade = Cidade.find(params[:id])
   end
 
   def cidade_params
-    params.require(:cidade).permit(:nome, :estado_id) # AJUSTAR CONFORME TABELA
+    params.require(:cidade).permit(:nome, :estado_id)
   end
 end

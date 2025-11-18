@@ -38,17 +38,16 @@ class LocacaosController < ApplicationController
   end
 
   private
-
     def set_locacao
       @locacao = Locacao.find(params[:id])
     end
 
     def locacao_params
       params.require(:locacao).permit(
-        :cliente_id,
-        :data_locacao,
-        :data_devolucao,
-        :valor_total
-      ) # AJUSTAR CONFORME TABELA
+        :data_inicio,
+        :data_fim,
+        :cancelada,
+        :cliente_id
+      )
     end
 end

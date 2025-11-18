@@ -39,17 +39,11 @@ class ExemplarsController < ApplicationController
   end
 
   private
-
   def set_exemplar
     @exemplar = Exemplar.find(params[:id])
   end
 
   def exemplar_params
-    # ajuste conforme sua tabela `exemplar`
-    params.require(:exemplar).permit(
-      :midia_id,
-      :numero_registro,
-      :status
-    ) # AJUSTAR CONFORME TABELA
+    params.require(:exemplar).permit(:codigo_interno, :disponivel, :midia_id)
   end
 end
