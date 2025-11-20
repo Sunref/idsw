@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Old Store Media - Locação</title>
+		<link rel="stylesheet" href="main.css" />
+	</head>
+	<body>
+		<!-- Navbar Lateral -->
+		<div class="navbar">
+			<div class="navbar-header">
+				<div class="navbar-logo">
+					<div class="logo-icon">
+						<img src="fotos/logo.png" alt="Logo" />
+					</div>
+					<div>
+						<div class="navbar-title">Old Store Media</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="navbar-menu">
+				<div class="menu-section">
+					<div class="menu-section-title">Principal</div>
+					<div class="menu-item" onclick="openWindow('dashboard')">
+						<div
+							class="menu-item-icon"
+							style="
+								background: linear-gradient(
+									135deg,
+									rgba(64, 156, 255, 0.2) 0%,
+									rgba(152, 179, 255, 0.2) 100%
+								);
+							"
+						>
+							📊
+						</div>
+						<span>Dashboard</span>
+					</div>
+				</div>
+
+				<div class="menu-section">
+					<div class="menu-section-title">Gestão</div>
+					<div class="menu-item" onclick="openWindow('clientes')">
+						<div
+							class="menu-item-icon"
+							style="
+								background: linear-gradient(
+									135deg,
+									rgba(64, 156, 255, 0.2) 0%,
+									rgba(152, 179, 255, 0.2) 100%
+								);
+							"
+						>
+							👥
+						</div>
+						<span>Clientes</span>
+					</div>
+					<div class="menu-item" onclick="openWindow('midias')">
+						<div
+							class="menu-item-icon"
+							style="
+								background: linear-gradient(
+									135deg,
+									rgba(64, 156, 255, 0.2) 0%,
+									rgba(152, 179, 255, 0.2) 100%
+								);
+							"
+						>
+							🎬
+						</div>
+						<span>Catálogo de Mídias</span>
+					</div>
+					<div class="menu-item" onclick="openWindow('locacoes')">
+						<div
+							class="menu-item-icon"
+							style="
+								background: linear-gradient(
+									135deg,
+									rgba(64, 156, 255, 0.2) 0%,
+									rgba(152, 179, 255, 0.2) 100%
+								);
+							"
+						>
+							📅
+						</div>
+						<span>Locações</span>
+					</div>
+					<div class="menu-item" onclick="openWindow('atores')">
+						<div
+							class="menu-item-icon"
+							style="
+								background: linear-gradient(
+									135deg,
+									rgba(64, 156, 255, 0.2) 0%,
+									rgba(152, 179, 255, 0.2) 100%
+								);
+							"
+						>
+							🎭
+						</div>
+						<span>Atores</span>
+					</div>
+				</div>
+
+				<div class="menu-section">
+					<div class="menu-section-title">Estoque</div>
+					<div class="menu-item" onclick="openWindow('exemplares')">
+						<div
+							class="menu-item-icon"
+							style="
+								background: linear-gradient(
+									135deg,
+									rgba(64, 156, 255, 0.2) 0%,
+									rgba(152, 179, 255, 0.2) 100%
+								);
+							"
+						>
+							💿
+						</div>
+						<span>Exemplares</span>
+					</div>
+					<div class="menu-item" onclick="openWindow('generos')">
+						<div
+							class="menu-item-icon"
+							style="
+								background: linear-gradient(
+									135deg,
+									rgba(64, 156, 255, 0.2) 0%,
+									rgba(152, 179, 255, 0.2) 100%
+								);
+							"
+						>
+							🏷️
+						</div>
+						<span>Gêneros</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Desktop -->
+		<div class="desktop" id="desktop"></div>
+		<div id="statusbar">
+			<button id="logout-btn" onclick="logout()">⏻ Sair</button>
+		</div>
+
+		<script src="main.js"></script>
+	</body>
+</html>
