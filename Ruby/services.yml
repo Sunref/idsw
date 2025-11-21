@@ -1,0 +1,45 @@
+services:
+  db:
+    # MariaDB database service
+    image: mariadb:latest
+    environment:
+      # Database access credentials and schema name
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: locacao_midias
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 123
+    ports:
+      # Expose the database port to the host machine
+      - "3306:3306"
+    networks:
+      - appnet
+    volumes:
+      - ./database/locacao_midias.sql:/docker-entrypoint-initdb.d/seed.sql
+      - db_data:/var/lib/mysql
+
+  ruby:
+    # Ruby application service
+    build:
+      context: ./locadora
+      dockerfile: Dockerfile
+    depends_on:
+      # Ensures the database service starts before the Ruby service
+      - db
+    networks:
+      - appnet
+    ports:
+      # Expose the web application port (e.g., Rails/Rack) to the host machine
+      - "80:80"
+    environment:
+      # Connection string for the Ruby application to connect to the 'db' service
+      DATABASE_URL: mysql2://admin:123@db:3306/locacao_midias
+      RAILS_ENV: production
+
+# Define the custom bridge network
+networks:
+  appnet:
+    driver: bridge
+
+# Define the volume for persistent database storage
+volumes:
+  db_data:
