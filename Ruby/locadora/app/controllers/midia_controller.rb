@@ -48,6 +48,7 @@ class MidiaController < ApplicationController
         :ano_lancamento,
         :codigo_barras,
         :duracao_em_minutos,
+        :custo,
         :ator_principal,
         :ator_coadjuvante,
         :genero_id,
