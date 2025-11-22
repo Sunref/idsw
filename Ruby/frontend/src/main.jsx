@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
 import Locadora from './pages/locadora.jsx'
-import Paginateste from './pages/paginateste.jsx'
+import Tecnologias from './pages/tecnologias.jsx'
 import Servicos from './pages/servicos.jsx'
 
 createRoot(document.getElementById('root')).render(

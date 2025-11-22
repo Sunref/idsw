@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Servicos() {
+function Servicos() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-purple-950 via-black to-pink-950 py-20 px-6">
-      <div className="max-w-7xl mx-auto">
+    <section className="min-h-screen bg-linear-to-b from-purple-950 via-black to-pink-950 px-6 py-20 -mt-1">
+      <div className="max-w-7xl mx-auto pt-20">
         
         {/* Título Principal */}
         <div className="text-center mb-16">
@@ -23,7 +23,7 @@ export default function Servicos() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
           
           {/* Card 1 - Mídia Física */}
-          <div className="bg-gradient-to-br from-pink-600/20 to-purple-600/20 backdrop-blur-sm border-2 border-pink-500/50 rounded-lg p-8 hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-pink-500/50">
+          <div className="bg-linear-to-br from-pink-600/20 to-purple-600/20 backdrop-blur-sm border-2 border-pink-500/50 rounded-lg p-8 hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-pink-500/50">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-white font-mono">Mídia Física</h3>
               <div className="text-5xl">💿</div>
@@ -34,7 +34,7 @@ export default function Servicos() {
           </div>
 
           {/* Card 2 - Mídia Digital */}
-          <div className="bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm border-2 border-purple-500/50 rounded-lg p-8 hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-purple-500/50">
+          <div className="bg-linear-to-br from-purple-600/20 to-blue-600/20 backdrop-blur-sm border-2 border-purple-500/50 rounded-lg p-8 hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-purple-500/50">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-white font-mono">Mídia Digital</h3>
               <div className="text-5xl">📱</div>
@@ -45,7 +45,7 @@ export default function Servicos() {
           </div>
 
           {/* Card 3 - DVD */}
-          <div className="bg-gradient-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border-2 border-blue-500/50 rounded-lg p-8 hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-blue-500/50">
+          <div className="bg-linear-to-br from-blue-600/20 to-cyan-600/20 backdrop-blur-sm border-2 border-blue-500/50 rounded-lg p-8 hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-blue-500/50">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-white font-mono">Formato DVD</h3>
               <div className="text-5xl">📀</div>
@@ -56,7 +56,7 @@ export default function Servicos() {
           </div>
 
           {/* Card 4 - Blu-ray */}
-          <div className="bg-gradient-to-br from-cyan-600/20 to-teal-600/20 backdrop-blur-sm border-2 border-cyan-500/50 rounded-lg p-8 hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-cyan-500/50">
+          <div className="bg-linear-to-br from-cyan-600/20 to-teal-600/20 backdrop-blur-sm border-2 border-cyan-500/50 rounded-lg p-8 hover:scale-105 transition-transform hover:shadow-2xl hover:shadow-cyan-500/50">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-2xl font-bold text-white font-mono">Blu-ray 4K</h3>
               <div className="text-5xl">🎬</div>
@@ -69,10 +69,10 @@ export default function Servicos() {
         </div>
 
         {/* Seção Destaque */}
-        <div className="bg-gradient-to-r from-pink-600/30 via-purple-600/30 to-blue-600/30 backdrop-blur-md border-2 border-white/20 rounded-2xl p-12 relative overflow-hidden">
+        <div className="bg-linear-to-r from-pink-600/30 via-purple-600/30 to-blue-600/30 backdrop-blur-md border-2 border-white/20 rounded-2xl p-12 relative overflow-hidden">
           
           {/* Efeito de brilho */}
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent animate-pulse"></div>
+          <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/5 to-transparent animate-pulse"></div>
           
           <div className="relative z-10 grid md:grid-cols-2 gap-12 items-center">
             
@@ -135,3 +135,5 @@ export default function Servicos() {
     </section>
   );
 }
+
+export default Servicos;
