@@ -174,7 +174,36 @@ function Home() {
 							Clique para pausar
 						</div>
 					)}
-
+					{/* setas animadas indicando continuidade do site para baixo */}
+					<div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-1 pointer-events-none">
+						<div
+							className="text-pink-500 text-3xl animate-bounce font-bold"
+							style={{
+								textShadow: '0 0 10px #ff006e, 0 0 20px #ff006e',
+								animationDelay: '0s'
+							}}
+						>
+							▼
+						</div>
+						<div
+							className="text-purple-500 text-3xl animate-bounce font-bold"
+							style={{
+								textShadow: '0 0 10px #8338ec, 0 0 20px #8338ec',
+								animationDelay: '0.2s'
+							}}
+						>
+							▼
+						</div>
+						<div
+							className="text-blue-500 text-3xl animate-bounce font-bold"
+							style={{
+								textShadow: '0 0 10px #3b82f6, 0 0 20px #3b82f6',
+								animationDelay: '0.4s'
+							}}
+						>
+							▼
+						</div>
+					</div>
 				</div>
 
 				<Servicos />
