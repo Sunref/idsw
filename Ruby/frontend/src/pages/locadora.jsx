@@ -789,57 +789,59 @@ const CrudResource = ({ config }) => {
             </div>
 
             <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-                <DialogContent>
+                <DialogContent className="max-h-[90vh] flex flex-col">
                     <DialogHeader>
                         <DialogTitle>{currentItem ? "Editar registro" : "Novo registro"}</DialogTitle>
                         <DialogDescription>
                             Preencha os campos abaixo para {currentItem ? "atualizar" : "cadastrar"} o recurso.
                         </DialogDescription>
                     </DialogHeader>
-                    <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
-                        {config.formFields.map((field) => (
-                            <div key={field.name} className="space-y-2">
-                                <Label htmlFor={field.name}>{field.label}</Label>
-                                {field.type === "select" ? (
-                                    <Select
-                                        value={`${formValues[field.name] ?? ""}`}
-                                        onValueChange={(value) =>
-                                            setFormValues((prev) => ({ ...prev, [field.name]: value }))
-                                        }
-                                    >
-                                        <SelectTrigger>
-                                            <SelectValue placeholder="Selecione" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                            {(field.options ?? selectOptions[field.name] ?? []).map((option) => (
-                                                <SelectItem key={option.value} value={`${option.value}`}>
-                                                    {option.label}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectContent>
-                                    </Select>
-                                ) : (
-                                    <Input
-                                        id={field.name}
-                                        type={field.type === "number" ? "number" : field.type ?? "text"}
-                                        value={formValues[field.name] ?? ""}
-                                        onChange={(event) =>
-                                            setFormValues((prev) => ({ ...prev, [field.name]: event.target.value }))
-                                        }
-                                        required={field.required}
-                                    />
-                                )}
+                    <div className="flex-1 overflow-y-auto pr-2">
+                        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
+                            {config.formFields.map((field) => (
+                                <div key={field.name} className="space-y-2">
+                                    <Label htmlFor={field.name}>{field.label}</Label>
+                                    {field.type === "select" ? (
+                                        <Select
+                                            value={`${formValues[field.name] ?? ""}`}
+                                            onValueChange={(value) =>
+                                                setFormValues((prev) => ({ ...prev, [field.name]: value }))
+                                            }
+                                        >
+                                            <SelectTrigger>
+                                                <SelectValue placeholder="Selecione" />
+                                            </SelectTrigger>
+                                            <SelectContent>
+                                                {(field.options ?? selectOptions[field.name] ?? []).map((option) => (
+                                                    <SelectItem key={option.value} value={`${option.value}`}>
+                                                        {option.label}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                    ) : (
+                                        <Input
+                                            id={field.name}
+                                            type={field.type === "number" ? "number" : field.type ?? "text"}
+                                            value={formValues[field.name] ?? ""}
+                                            onChange={(event) =>
+                                                setFormValues((prev) => ({ ...prev, [field.name]: event.target.value }))
+                                            }
+                                            required={field.required}
+                                        />
+                                    )}
+                                </div>
+                            ))}
+                            <div className="flex justify-end gap-3 pt-4">
+                                <Button type="button" variant="ghost" onClick={() => setModalOpen(false)}>
+                                    Cancelar
+                                </Button>
+                                <Button type="submit" disabled={isSubmitting}>
+                                    {isSubmitting ? "Salvando..." : "Salvar"}
+                                </Button>
                             </div>
-                        ))}
-                        <div className="flex justify-end gap-3 pt-4">
-                            <Button type="button" variant="ghost" onClick={() => setModalOpen(false)}>
-                                Cancelar
-                            </Button>
-                            <Button type="submit" disabled={isSubmitting}>
-                                {isSubmitting ? "Salvando..." : "Salvar"}
-                            </Button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </DialogContent>
             </Dialog>
         </WindowShell>
