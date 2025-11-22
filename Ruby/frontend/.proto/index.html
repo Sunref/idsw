@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Locadora — Login</title>
+
+		<!-- Usa o mesmo CSS do seu sistema -->
+		<link rel="stylesheet" href="main.css" />
+
+		<style>
+			body {
+				background: linear-gradient(135deg, #0b0e17, #101522);
+				height: 100vh;
+				overflow: hidden;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				color: #c9d1d9;
+				font-family: Arial, sans-serif;
+			}
+
+			.logo {
+				width: 420px;
+				height: 420px;
+				background: none;
+				border-radius: 24px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				overflow: hidden;
+			}
+
+			.logo img {
+				max-width: 100%;
+				max-height: 100%;
+				object-fit: contain;
+				display: block;
+			}
+
+			.subtitle {
+				max-width: 600px;
+				text-align: center;
+				font-size: 18px;
+				line-height: 1.5;
+				margin-bottom: 40px;
+				opacity: 0.8;
+			}
+
+			.login-window {
+				width: 420px;
+				border-radius: 12px;
+				overflow: hidden;
+				background: rgba(255, 255, 255, 0.03);
+				backdrop-filter: blur(8px);
+				border: 1px solid rgba(100, 150, 255, 0.25);
+				box-shadow: 0 0 35px rgba(0, 0, 0, 0.5);
+			}
+
+			.login-titlebar {
+				background: rgba(0, 0, 0, 0.25);
+				padding: 12px 16px;
+				display: flex;
+				justify-content: center;
+				border-bottom: 1px solid rgba(100, 150, 255, 0.25);
+			}
+
+			.login-titlebar span {
+				font-weight: bold;
+				color: #9fbaff;
+			}
+
+			.login-content {
+				padding: 24px;
+				display: flex;
+				flex-direction: column;
+				gap: 16px;
+			}
+
+			input {
+				width: 100%;
+				padding: 12px;
+				border-radius: 8px;
+				border: 1px solid rgba(100, 150, 255, 0.3);
+				background: rgba(0, 0, 0, 0.25);
+				color: #e6e6e6;
+			}
+
+			input:focus {
+				outline: none;
+				border-color: #6aa6ff;
+			}
+
+			button {
+				padding: 12px;
+				border-radius: 8px;
+				background: #6aa6ff;
+				border: none;
+				color: white;
+				font-weight: bold;
+				cursor: pointer;
+				transition: 0.2s;
+			}
+
+			button:hover {
+				background: #89b9ff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!-- LOGO -->
+		<div class="logo">
+			<img src="fotos/logo.png" alt="Logo" />
+		</div>
+
+		<!-- Subtítulo -->
+		<div class="subtitle">
+			Sistema automatizado para locação das mídias. Seu login conta como
+			ponto de venda; erros serão descontados do salário.
+		</div>
+
+		<!-- JANELA DE LOGIN-->
+		<div class="login-window">
+			<div class="login-titlebar">
+				<span>Login</span>
+			</div>
+
+			<div class="login-content">
+				<input type="text" id="user" placeholder="Usuário" />
+				<input type="password" id="pass" placeholder="Senha" />
+				<button onclick="login()">Entrar</button>
+			</div>
+		</div>
+
+		<script>
+			function login() {
+				// Por enquanto apenas redireciona
+				window.location.href = "locadora.html";
+			}
+		</script>
+	</body>
+</html>
