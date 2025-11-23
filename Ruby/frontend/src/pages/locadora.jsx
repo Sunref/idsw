@@ -691,7 +691,7 @@ const CrudResource = ({ config }) => {
         <WindowShell
             title={config.title}
             subtitle={config.description}
-            icon="🪟"
+            icon="💿"
             actions={
                 <>
                     <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-white/5 px-3 py-1.5">
