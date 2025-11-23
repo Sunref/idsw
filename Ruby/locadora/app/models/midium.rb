@@ -9,7 +9,7 @@ class Midium < ApplicationRecord
   belongs_to :tipo
   belongs_to :classificacao_interna
 
-  has_many :exemplares, foreign_key: "midia_id", class_name: "Exemplar"
+  has_many :exemplares, class_name: "Exemplar", foreign_key: "midia_id", dependent: :restrict_with_error
 
   validates :titulo, :ano_lancamento, :codigo_barras, :duracao_em_minutos, :custo, presence: true
   validates :codigo_barras, uniqueness: true

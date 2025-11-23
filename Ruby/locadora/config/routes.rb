@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   resources :classificacao_etaria
   resources :classificacao_internas
   resources :estados
-  resources :exemplars, path: 'exemplares'
+  resources :exemplars, path: "exemplares", param: :codigo_interno
   resources :generos
   resources :item_locacaos, path: 'itens_locacao'
   resources :midia

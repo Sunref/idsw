@@ -303,13 +303,14 @@ const RESOURCE_CONFIGS = {
         ],
     },
     exemplares: {
-        id: "exemplares",
+    id: "exemplares",
         title: "Exemplares",
         description: "Controle físico das cópias disponíveis.",
         endpoint: "exemplares",
         entityKey: "exemplar",
+        primaryKey: "codigo_interno",
         columns: [
-            { key: "codigo_interno", label: "Código" },
+            { key: "codigo_interno", label: "Código" },,
             {
                 key: "midia_id",
                 label: "Mídia",
@@ -624,30 +625,6 @@ const CrudResource = ({ config }) => {
         return value ?? "—";
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        setIsSubmitting(true);
-        setFeedback(null);
-        try {
-            const payload = buildPayload(config.formFields, formValues);
-            if (currentItem) {
-                await updateResource(config.endpoint, config.entityKey, currentItem.id, payload);
-                setFeedback({ type: "success", message: "Registro atualizado com sucesso." });
-            } else {
-                await createResource(config.endpoint, config.entityKey, payload);
-                setFeedback({ type: "success", message: "Registro criado com sucesso." });
-            }
-            setModalOpen(false);
-            setFormValues(buildInitialValues(config));
-            setCurrentItem(null);
-            loadItems();
-        } catch (err) {
-            setFeedback({ type: "error", message: extractError(err) });
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
     const openModalForCreate = () => {
         setFormValues(buildInitialValues(config));
         setCurrentItem(null);
@@ -673,13 +650,41 @@ const CrudResource = ({ config }) => {
         setModalOpen(true);
     };
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        setIsSubmitting(true);
+        setFeedback(null);
+        try {
+            const payload = buildPayload(config.formFields, formValues);
+            if (currentItem) {
+                // Use primaryKey se existir, senão use 'id'
+                const itemId = currentItem[config.primaryKey || 'id'];
+                await updateResource(config.endpoint, config.entityKey, itemId, payload);
+                setFeedback({ type: "success", message: "Registro atualizado com sucesso." });
+            } else {
+                await createResource(config.endpoint, config.entityKey, payload);
+                setFeedback({ type: "success", message: "Registro criado com sucesso." });
+            }
+            setModalOpen(false);
+            setFormValues(buildInitialValues(config));
+            setCurrentItem(null);
+            loadItems();
+        } catch (err) {
+            setFeedback({ type: "error", message: extractError(err) });
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     const handleDelete = async (item) => {
         const confirmation = window.confirm(
             `Deseja remover "${item[config.columns[1]?.key] ?? item.id}"?`,
         );
         if (!confirmation) return;
         try {
-            await deleteResource(config.endpoint, item.id);
+            // Use primaryKey se existir, senão use 'id'
+            const itemId = item[config.primaryKey || 'id'];
+            await deleteResource(config.endpoint, itemId);
             setFeedback({ type: "success", message: "Registro removido." });
             loadItems();
         } catch (err) {

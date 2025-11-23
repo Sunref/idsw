@@ -19,7 +19,7 @@ class ClientesController < ApplicationController
     if cliente.save
       render json: cliente, status: :created
     else
-      render json: cliente.errors, status: :unprocessable_entity
+      render json: { errors: cliente.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
@@ -28,19 +28,33 @@ class ClientesController < ApplicationController
     if @cliente.update(cliente_params)
       render json: @cliente, status: :ok
     else
-      render json: @cliente.errors, status: :unprocessable_entity
+      render json: { errors: @cliente.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
   # DELETE /clientes/:id
   def destroy
-    @cliente.destroy!
-    head :no_content
+    if @cliente.locacoes.any?
+      render json: {
+        errors: ["Não é possível excluir cliente com locações associadas"],
+        locacoes_count: @cliente.locacoes.count
+      }, status: :unprocessable_entity
+    else
+      @cliente.destroy!
+      head :no_content
+    end
+  rescue ActiveRecord::InvalidForeignKey
+    render json: {
+      errors: ["Não é possível excluir cliente com registros associados"]
+    }, status: :unprocessable_entity
   end
 
   private
+
   def set_cliente
     @cliente = Cliente.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { errors: ["Cliente não encontrado"] }, status: :not_found
   end
 
   def cliente_params

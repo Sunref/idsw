@@ -10,7 +10,6 @@ class Exemplar < ApplicationRecord
 
   # Validações
   validates :disponivel, inclusion: { in: [true, false] }
-  validate :nao_pode_deletar_se_em_locacao, on: :destroy
 
   # Métodos de classe para controle de estoque
   def self.disponiveis_para_locacao(midia_id)
@@ -43,8 +42,8 @@ class Exemplar < ApplicationRecord
 
   def em_locacao_ativa?
     itens_locacao.joins(:locacao)
-                 .where(locacoes: { cancelada: false })
-                 .where("locacoes.data_fim >= ?", Date.today)
+                 .where(locacao: { cancelada: false })
+                 .where("locacao.data_fim >= ?", Date.today)
                  .exists?
   end
 

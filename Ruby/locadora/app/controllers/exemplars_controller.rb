@@ -34,13 +34,23 @@ class ExemplarsController < ApplicationController
 
   # DELETE /exemplars/1
   def destroy
-    @exemplar.destroy!
-    head :no_content
+    if @exemplar.em_locacao_ativa?
+    return render json: {
+        erro: "Não é possível excluir este exemplar pois está em locação ativa."
+    }, status: :unprocessable_entity
+    end
+
+    if @exemplar.destroy
+    	render json: { mensagem: "Exemplar excluído com sucesso." }, status: :ok
+    else
+    	render json: { erros: @exemplar.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
+
   def set_exemplar
-    @exemplar = Exemplar.find(params[:id])
+    @exemplar = Exemplar.find(params[:codigo_interno])
   end
 
   def exemplar_params

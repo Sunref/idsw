@@ -32,9 +32,26 @@ class MidiaController < ApplicationController
   end
 
   # DELETE /midia/:id
+  # DELETE /midia/:id
   def destroy
-    @midium.destroy
-    head :no_content
+    if @midium.exemplares.exists?
+      return render json: {
+        erro: "Não é possível excluir a mídia pois existem exemplares cadastrados."
+      }, status: :unprocessable_entity
+    end
+
+    # Regras para mídia alugada
+    if @midium.exemplares.where(disponivel: false).exists?
+      return render json: {
+        erro: "Não é possível excluir a mídia pois há exemplares alugados."
+      }, status: :unprocessable_entity
+    end
+
+    if @midium.destroy
+      render json: { mensagem: "Mídia excluída com sucesso." }, status: :ok
+    else
+      render json: { erros: @midium.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   private
