@@ -1,8 +1,9 @@
 class Midium < ApplicationRecord
   self.table_name = "midia"
 
-  belongs_to :ator_principal, class_name: "Ator", foreign_key: "ator_principal"
-  belongs_to :ator_coadjuvante, class_name: "Ator", foreign_key: "ator_coadjuvante"
+  belongs_to :ator_principal_obj, class_name: "Ator", foreign_key: "ator_principal", optional: true
+  belongs_to :ator_coadjuvante_obj, class_name: "Ator", foreign_key: "ator_coadjuvante", optional: true
+
   belongs_to :genero
   belongs_to :classificacao_etaria, class_name: "ClassificacaoEtarium"
   belongs_to :tipo
