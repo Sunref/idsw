@@ -33,8 +33,14 @@ class AtorsController < ApplicationController
 
   # DELETE /ators/:id
   def destroy
-    @ator.destroy
-    head :no_content
+    if @ator.midia_principal.any? || @ator.midia_coadjuvante.any?
+      render json: {
+        error: "Não é possível deletar este ator pois existem mídias associadas"
+      }, status: :unprocessable_entity
+    else
+      @ator.destroy
+      head :no_content
+    end
   end
 
   private
