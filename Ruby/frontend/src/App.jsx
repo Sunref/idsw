@@ -34,7 +34,7 @@ function Header() {
 				{/* Botão de Ação */}
 				<button
 					onClick={() => navigate('/locadora')}
-					className="bg-linear-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:scale-105 transition"
+					className="bg-linear-to-r from-purple-500 to-blue-500 text-white px-6 py-2 rounded-full font-semibold hover:scale-105 transition cursor-pointer" 
 				>
 					Entrar
 				</button>
@@ -44,19 +44,19 @@ function Header() {
 			<nav className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center gap-8">
 				<button
 					onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-					className="text-gray-300 hover:text-white transition"
+					className="text-gray-300 hover:text-white transition cursor-pointer"
 				>
 					Home
 				</button>
 				<button
 					onClick={() => navigate('/tecnologias')}
-					className="text-gray-300 hover:text-white transition"
+					className="text-gray-300 hover:text-white transition cursor-pointer"
 				>
 					Tecnologias
 				</button>
 				<button
 					onClick={() => window.scrollTo({ top: 2000, behavior: 'smooth' })}
-					className="text-gray-300 hover:text-white transition"
+					className="text-gray-300 hover:text-white transition cursor-pointer"
 				>
 					Equipe
 				</button>

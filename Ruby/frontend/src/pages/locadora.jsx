@@ -856,11 +856,13 @@ const CrudResource = ({ config }) => {
 const Sidebar = ({ activeItem, onChange }) => (
     <aside className="fixed left-0 top-0 flex h-full w-72 flex-col border-r border-white/10 bg-slate-950/80 px-6 py-8 text-white shadow-2xl shadow-black/70 backdrop-blur-2xl">
         <div className="mb-8 flex items-center gap-3">
+            <button className="items-center gap-3 hidden md:flex cursor-pointer" onClick={() => window.location.href = "/"}>
             <img src={logo} alt="Locadora" className="h-12 w-12 rounded-2xl border border-white/10 bg-white/5 p-2" />
             <div>
                 <p className="text-sm uppercase tracking-[0.2em] text-white/60">Old Store Media</p>
                 <p className="text-lg font-semibold">Console de gestão</p>
             </div>
+            </button>
         </div>
         <nav className="flex-1 space-y-8 overflow-y-auto pr-2">
             {MENU_GROUPS.map((group) => (
@@ -888,7 +890,7 @@ const Sidebar = ({ activeItem, onChange }) => (
             ))}
         </nav>
         <div className="pt-4">
-            <Button variant="secondary" className="w-full">
+            <Button variant="secondary" className="w-full cursor-pointer" onClick={() => window.location.href = "/"}>
                 <LogOut className="mr-2 h-4 w-4" /> Sair
             </Button>
         </div>
