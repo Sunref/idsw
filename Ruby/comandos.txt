@@ -1,0 +1,9 @@
+cd locadora
+gem install rails
+rvm install "ruby-3.3.4"
+bundle install
+./bin/rails server
+
+cd frontend
+npm install
+npx vite

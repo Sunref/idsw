@@ -109,6 +109,7 @@ CREATE TABLE midia (
   classificacao_etaria_id INT NOT NULL,
   tipo_id INT NOT NULL,
   classificacao_interna_id INT NOT NULL,
+  custo DECIMAL(15,2) NOT NULL,
   PRIMARY KEY (id),
   UNIQUE (codigo_barras),
   FOREIGN KEY (ator_principal) REFERENCES ator(id),
@@ -223,9 +224,13 @@ INSERT INTO classificacao_interna (id, descricao, valor_aluguel) VALUES
 -- ========================================
 -- Inserts: midia
 -- ========================================
-INSERT INTO midia (id, titulo, ano_lancamento, codigo_barras, duracao_em_minutos, ator_principal, ator_coadjuvante, genero_id, classificacao_etaria_id, tipo_id, classificacao_interna_id) VALUES
-  (1, 'Harry Potter e a Pedra Filosofal', 2001, '1231231231231', 125, 3, 4, 2, 1, 1, 2),
-  (2, 'Matrix', 1999, '4564564564564', 136, 1, 2, 3, 2, 2, 3);
+INSERT INTO midia (
+  id, titulo, ano_lancamento, codigo_barras, duracao_em_minutos,
+  ator_principal, ator_coadjuvante, genero_id, classificacao_etaria_id,
+  tipo_id, classificacao_interna_id, custo
+) VALUES
+  (1, 'Harry Potter e a Pedra Filosofal', 2001, '1231231231231', 125, 3, 4, 2, 1, 1, 2, 50.00),
+  (2, 'Matrix', 1999, '4564564564564', 136, 1, 2, 3, 2, 2, 3, 40.00);
 
 -- ========================================
 -- Inserts: exemplar

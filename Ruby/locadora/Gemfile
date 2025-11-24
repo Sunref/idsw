@@ -50,6 +50,4 @@ group :development, :test do
 
 end
 
-gem "tailwindcss-rails", "~> 4.4"
-
-gem "sprockets-rails", "~> 3.5"
+gem "rack-cors", "~> 3.0"
