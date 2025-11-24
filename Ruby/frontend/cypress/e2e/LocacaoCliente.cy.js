@@ -17,7 +17,6 @@ describe("CRUD Cliente — criação", () => {
     cy.contains("label", "Nome").parent().find("input").type("Fernanda");
     cy.contains("label", "Sobrenome").parent().find("input").type("Martins");
 
-    // Corrigido: calendário não quebra mais
     cy.contains("label", "Data de Nascimento")
       .parent()
       .find("input")
@@ -33,23 +32,19 @@ describe("CRUD Cliente — criação", () => {
     cy.contains("label", "Bairro").parent().find("input").type("Centro");
     cy.contains("label", "CEP").parent().find("input").type("13880-000");
 
-    // Abre
     cy.contains("label", "Cidade")
       .parent()
       .find('button[role="combobox"]')
       .click({ force: true });
 
-    // Garante que as opções surgiram
     cy.get('[data-radix-popper-content-wrapper] [role="option"]', {
       timeout: 5000,
     }).should("be.visible");
 
-    // Seleciona
     cy.contains('[role="option"]', "Vargem Grande do Sul").click({
       force: true,
     });
 
-    // Aguarda o botão "Salvar" existir no DOM
     cy.contains("button", "Salvar")
       .should("exist")
       .then(($btn) => {
@@ -57,12 +52,10 @@ describe("CRUD Cliente — criação", () => {
         cy.log(`Encontrados: ${$btn.length} botões "Salvar"`);
       });
 
-    // Aguarda ele estar visível e habilitado
     cy.contains("button", "Salvar")
       .should("be.visible")
       .should("not.be.disabled");
 
-    // Tenta clicar normalmente
     cy.contains("button", "Salvar")
       .click()
       .then(() => {
@@ -72,7 +65,6 @@ describe("CRUD Cliente — criação", () => {
     cy.contains("Registro criado com sucesso.");
   });
 
-  // Função de Entrar no sistema
   function visitaEntrar() {
     cy.visit("/");
     cy.contains("Entrar");
