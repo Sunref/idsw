@@ -13,6 +13,8 @@ import Vitelogo from "../assets/images/logos/vite_js_logo.png";
 import Tailwindlogo from "../assets/images/logos/tailwind_css_logo.png";
 import Mariadblogo from "../assets/images/logos/mariadb_logo.png";
 import Dockerlogo from "../assets/images/logos/docker_logo.png";
+import Cypresslogo from "../assets/images/logos/cypress_logo.png";
+import Podmanlogo from "../assets/images/logos/podmanlogo.png";
 
 function Header() {
     const navigate = useNavigate();
@@ -144,6 +146,20 @@ function Tecnologias() {
             destaque: false,
             resumo: "Plataforma de containerização que empacota aplicações com todas suas dependências. Garante ambientes consistentes entre desenvolvimento, testes e produção.",
             funcao: "Containerização, deploy consistente e orquestração de serviços"
+        },
+        {
+            nome: "Cypress",
+            logo: Cypresslogo,
+            destaque: false,
+            resumo: "Framework de testes end-to-end (E2E) moderno para aplicações web. Permite simular interações reais de usuários no navegador, validando fluxos completos da aplicação com execução rápida e debugging visual.",
+            funcao: "Testes automatizados de interface, validação de fluxos de usuário e garantia de qualidade"
+        },
+        {
+            nome: "Podman",
+            logo: Podmanlogo,
+            destaque: false,
+            resumo: "Alternativa ao Docker para gerenciamento de containers, com foco em segurança e execução rootless (sem privilégios de administrador). Compatível com imagens Docker e oferece arquitetura daemonless.",
+            funcao: "Containerização de aplicações, deploy isolado e orquestração de ambientes"
         }
     ];
 
