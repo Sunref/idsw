@@ -1,13 +1,13 @@
 # Locadora de Mídias — Projeto Ruby on Rails (IDSW)
 <p align="center">
-  <img alt="Ruby" src="https://img.shields.io/badge/Ruby-3.3.x-red?logo=ruby" />
-  <img alt="Rails" src="https://img.shields.io/badge/Rails-8.1-red?logo=rubyonrails" />
-  <img alt="React" src="https://img.shields.io/badge/React-18-blue?logo=react" />
-  <img alt="Vite" src="https://img.shields.io/badge/Vite-4.0-purple?logo=vite" />
-  <img alt="TailwindCSS" src="https://img.shields.io/badge/TailwindCSS-3.0-06B6D4?logo=tailwindcss" />
-  <img alt="MariaDB" src="https://img.shields.io/badge/MariaDB-10.11-blue?logo=mariadb" />
-  <img alt="Docker" src="https://img.shields.io/badge/Docker-compose-2496ED?logo=docker" />
-  <img alt="License" src="https://img.shields.io/badge/license-MIT-green" />
+  <img alt="Ruby" src="https://img.shields.io/badge/Ruby-3.3.x-red?logo=ruby&style=flat" />
+  <img alt="Rails" src="https://img.shields.io/badge/Rails-8.1-red?logo=rubyonrails&style=flat" />
+  <img alt="React" src="https://img.shields.io/badge/React-18-blue?logo=react&style=flat" />
+  <img alt="Vite" src="https://img.shields.io/badge/Vite-4.0-purple?logo=vite&style=flat" />
+  <img alt="TailwindCSS" src="https://img.shields.io/badge/TailwindCSS-3.0-06B6D4?logo=tailwindcss&style=flat" />
+  <img alt="MariaDB" src="https://img.shields.io/badge/MariaDB-10.11-blue?logo=mariadb&style=flat" />
+  <img alt="Docker" src="https://img.shields.io/badge/Docker-compose-2496ED?logo=docker&style=flat" />
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-green?style=flat" />
 </p>
 
 
