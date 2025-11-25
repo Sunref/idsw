@@ -5,7 +5,24 @@ describe("CRUD de Locações", () => {
     cy.contains("button", "Locações").click();
   });
 
-  it("Deve cadastrar uma nova locação com sucesso", () => {
+  it("Deve cadastrar uma nova locação com sucesso e atualizar o estoque", () => {
+    // Navega para o dashboard para pegar o valor inicial
+    cy.contains("button", "Dashboard").click();
+
+    // Captura o número de exemplares disponíveis no dashboard antes da locação
+    let exemplaresIniciais;
+    cy.get("div.grid > div:nth-child(4) p.text-4xl")
+      .should(($p) => {
+        const text = $p.text();
+        expect(text).not.to.eq("…");
+        expect(text).to.match(/^\d+$/);
+      })
+      .invoke("text")
+      .then((text) => {
+        exemplaresIniciais = parseInt(text);
+      });
+
+    cy.contains("button", "Locações").click();
     cy.contains("button", "Novo registro").click();
 
     cy.contains("label", "Data de início")
@@ -30,16 +47,21 @@ describe("CRUD de Locações", () => {
       .click({ force: true });
 
     // Seleciona exemplares (multi-select)
-    cy.contains("label", "Exemplares")
+    // Agora selecionamos filmes únicos
+    cy.contains("label", "Filmes disponíveis")
       .parent()
       .find("select option", { timeout: 10000 })
       .should("have.length.at.least", 1)
       .then(($options) => {
+        // Seleciona até 2 filmes
         const values = [...$options].map((o) => o.value).slice(0, 2);
-        cy.contains("label", "Exemplares")
+        cy.contains("label", "Filmes disponíveis")
           .parent()
           .find("select")
           .select(values, { force: true });
+
+        // Salva quantos foram selecionados para verificação
+        cy.wrap(values.length).as("qtdSelecionada");
       });
 
     cy.contains("label", "Situação")
@@ -54,6 +76,16 @@ describe("CRUD de Locações", () => {
     cy.contains("Registro criado com sucesso.", { timeout: 10000 });
 
     cy.get("table").should("exist");
+
+    // Volta para o dashboard e verifica se o estoque diminuiu
+    cy.contains("button", "Dashboard").click();
+
+    cy.get("@qtdSelecionada").then((qtd) => {
+      cy.get("div.grid > div:nth-child(4) p.text-4xl").should(($p) => {
+        const exemplaresFinais = parseInt($p.text());
+        expect(exemplaresFinais).to.equal(exemplaresIniciais - qtd);
+      });
+    });
   });
 
   it("Deve editar uma locação existente", () => {

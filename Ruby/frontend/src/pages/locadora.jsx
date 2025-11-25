@@ -289,13 +289,23 @@ const RESOURCE_CONFIGS = {
             },
             {
                 name: "exemplar_ids",
-                label: "Exemplares",
+                label: "Filmes disponíveis",
                 type: "multi-select",
                 required: true,
                 optionsResource: {
                     endpoint: "exemplares",
-                    labelFn: (exemplar) => `${exemplar.midia?.titulo ?? "Mídia desconhecida"} (Cód: ${exemplar.codigo_interno})`,
+                    labelFn: (exemplar) => exemplar.midia?.titulo ?? "Mídia desconhecida",
                     valueKey: "codigo_interno",
+                },
+                transformOptions: (options) => {
+                    const seenMidias = new Set();
+                    return options.filter((option) => {
+                        const exemplar = option.original;
+                        if (!exemplar.disponivel) return false;
+                        if (seenMidias.has(exemplar.midia_id)) return false;
+                        seenMidias.add(exemplar.midia_id);
+                        return true;
+                    });
                 },
             },
             { name: "data_inicio", label: "Data de início", type: "date", required: true },
@@ -498,6 +508,7 @@ const DashboardOverview = () => {
                             <tr>
                                 <th className="px-5 py-3">Protocolo</th>
                                 <th className="px-5 py-3">Cliente</th>
+                                <th className="px-5 py-3">Filmes</th>
                                 <th className="px-5 py-3">Início</th>
                                 <th className="px-5 py-3">Fim</th>
                                 <th className="px-5 py-3">Status</th>
@@ -506,13 +517,13 @@ const DashboardOverview = () => {
                         <tbody>
                             {loading ? (
                                 <tr>
-                                    <td colSpan={5} className="px-5 py-6 text-center text-white/60">
+                                    <td colSpan={6} className="px-5 py-6 text-center text-white/60">
                                         Carregando…
                                     </td>
                                 </tr>
                             ) : recentLocacoes.length === 0 ? (
                                 <tr>
-                                    <td colSpan={5} className="px-5 py-6 text-center text-white/60">
+                                    <td colSpan={6} className="px-5 py-6 text-center text-white/60">
                                         Nenhuma locação encontrada.
                                     </td>
                                 </tr>
@@ -522,6 +533,9 @@ const DashboardOverview = () => {
                                         <td className="px-5 py-4 font-semibold text-white">{locacao.id}</td>
                                         <td className="px-5 py-4">
                                             {locacao.cliente ? `${locacao.cliente.nome} ${locacao.cliente.sobrenome}` : `#${locacao.cliente_id}`}
+                                        </td>
+                                        <td className="px-5 py-4 text-white/70">
+                                            {locacao.item_locacoes?.map(item => item.exemplar?.midia?.titulo).join(", ") || "—"}
                                         </td>
                                         <td className="px-5 py-4">{formatDate(locacao.data_inicio)}</td>
                                         <td className="px-5 py-4">{formatDate(locacao.data_fim)}</td>
@@ -577,7 +591,10 @@ const CrudResource = ({ config }) => {
         const entries = await Promise.all(
             selectFields.map(async (field) => {
                 try {
-                    const options = await fetchOptions(field.optionsResource);
+                    let options = await fetchOptions(field.optionsResource);
+                    if (field.transformOptions) {
+                        options = field.transformOptions(options);
+                    }
                     return [field.name, options];
                 } catch (err) {
                     console.error(`Falha ao carregar opções de ${field.name}`, err);

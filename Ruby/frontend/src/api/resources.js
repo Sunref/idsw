@@ -46,6 +46,7 @@ export const fetchOptions = async ({
   return collection.map((item) => ({
     value: item[valueKey],
     label: labelFn ? labelFn(item) : item[labelKey],
+    original: item,
   }));
 };
 
