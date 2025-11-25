@@ -1,7 +1,9 @@
+name: locadora
 services:
   db:
     # MariaDB database service
     image: docker.io/library/mariadb:latest
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: admin123
       MYSQL_DATABASE: locacao_midias
@@ -24,7 +26,8 @@ services:
     # Rails API backend
     build:
       context: ./locadora
-      dockerfile: ../Dockerfile.dev
+      dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
@@ -40,6 +43,22 @@ services:
       - appnet
     volumes:
       - ./locadora:/rails
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+      - db
+    networks:
+      - appnet
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
 
 # Define the custom bridge network
 networks:
