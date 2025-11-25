@@ -66,6 +66,7 @@ class LocacaosController < ApplicationController
             exemplar = Exemplar.find(exemplar_id)
             valor = exemplar.midia.classificacao_interna.valor_aluguel
             ItemLocacao.create!(locacao: @locacao, exemplar: exemplar, valor: valor)
+            exemplar.update!(disponivel: false)
           end
         end
         render json: @locacao.as_json(methods: [:valor_total, :status]), status: :created

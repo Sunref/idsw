@@ -439,7 +439,7 @@ const DashboardOverview = () => {
                     clientes: clientes.length,
                     midias: midias.length,
                     locacoes: locacoes.length,
-                    exemplares: exemplares.length,
+                    exemplares: exemplares.filter(e => e.disponivel).length,
                 });
                 setRecentLocacoes(locacoes.slice(0, 5));
             } catch (err) {
