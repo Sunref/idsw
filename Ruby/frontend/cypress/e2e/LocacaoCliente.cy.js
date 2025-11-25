@@ -3,18 +3,14 @@ describe("CRUD Cliente — criação", () => {
     visitaEntrar();
     visitaCadastrarCliente();
 
-    cy.contains("tr", "Fernanda Martins").within(() => {
-      cy.contains("444.444.444-44").should("exist");
-      cy.contains("Vargem Grande do Sul").should("exist");
-
-      cy.get("button:has(svg.lucide-trash2)")
-        .should("have.length", 1)
-        .click({ force: true });
-    });
+    const timestamp = Date.now();
+    const nome = `Fernanda ${timestamp}`;
+    const email = `fernanda.${timestamp}@test.com`;
+    const cpf = String(timestamp).padEnd(11, "4").slice(0, 11);
 
     cy.contains("button", "Novo registro").click();
 
-    cy.contains("label", "Nome").parent().find("input").type("Fernanda");
+    cy.contains("label", "Nome").parent().find("input").type(nome);
     cy.contains("label", "Sobrenome").parent().find("input").type("Martins");
 
     cy.contains("label", "Data de Nascimento")
@@ -22,11 +18,8 @@ describe("CRUD Cliente — criação", () => {
       .find("input")
       .type("2003-08-22", { force: true });
 
-    cy.contains("label", "CPF").parent().find("input").type("444.444.444-44");
-    cy.contains("label", "E-mail")
-      .parent()
-      .find("input")
-      .type("fernanda@test.com");
+    cy.contains("label", "CPF").parent().find("input").type(cpf);
+    cy.contains("label", "E-mail").parent().find("input").type(email);
     cy.contains("label", "Logradouro").parent().find("input").type("Rua Teste");
     cy.contains("label", "Número").parent().find("input").type("100");
     cy.contains("label", "Bairro").parent().find("input").type("Centro");
@@ -48,7 +41,7 @@ describe("CRUD Cliente — criação", () => {
     cy.contains("button", "Salvar")
       .should("exist")
       .then(($btn) => {
-        // Log para verificar quantos botões correspondem ao seletor
+          // Removed log statement
         cy.log(`Encontrados: ${$btn.length} botões "Salvar"`);
       });
 
@@ -59,7 +52,7 @@ describe("CRUD Cliente — criação", () => {
     cy.contains("button", "Salvar")
       .click()
       .then(() => {
-        cy.log("Clique normal executado.");
+          // Removed log statement
       });
 
     cy.contains("Registro criado com sucesso.");
