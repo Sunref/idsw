@@ -321,7 +321,7 @@ const RESOURCE_CONFIGS = {
         entityKey: "exemplar",
         primaryKey: "codigo_interno",
         columns: [
-            { key: "codigo_interno", label: "Código" },,
+            { key: "codigo_interno", label: "Código" },
             {
                 key: "midia_id",
                 label: "Mídia",
@@ -551,6 +551,7 @@ const CrudResource = ({ config }) => {
     const [error, setError] = useState(null);
     const [feedback, setFeedback] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
+    const [fieldSearchTerms, setFieldSearchTerms] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const loadItems = useCallback(async () => {
@@ -838,7 +839,18 @@ const CrudResource = ({ config }) => {
                                             </SelectContent>
                                         </Select>
                                     ) : field.type === "multi-select" ? (
-                                        <div className="space-y-1">
+                                        <div className="space-y-2">
+                                            <Input
+                                                placeholder="Pesquisar..."
+                                                value={fieldSearchTerms[field.name] || ""}
+                                                onChange={(e) =>
+                                                    setFieldSearchTerms((prev) => ({
+                                                        ...prev,
+                                                        [field.name]: e.target.value,
+                                                    }))
+                                                }
+                                                className="bg-slate-950 border-white/10 text-white placeholder:text-white/50"
+                                            />
                                             <select
                                                 multiple
                                                 className="flex h-32 w-full rounded-md border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white placeholder:text-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
@@ -848,7 +860,15 @@ const CrudResource = ({ config }) => {
                                                     setFormValues((prev) => ({ ...prev, [field.name]: values }));
                                                 }}
                                             >
-                                                {(field.options ?? selectOptions[field.name] ?? []).map((option) => (
+                                                {(field.options ?? selectOptions[field.name] ?? [])
+                                                    .filter((option) =>
+                                                        (option.label || "")
+                                                            .toLowerCase()
+                                                            .includes(
+                                                                (fieldSearchTerms[field.name] || "").toLowerCase()
+                                                            )
+                                                    )
+                                                    .map((option) => (
                                                     <option key={option.value} value={option.value} className="py-1">
                                                         {option.label}
                                                     </option>

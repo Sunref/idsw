@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   end
 
   # Rotas de clientes
+  # Garante que a rota de clientes esteja definida
   resources :clientes do
     member do
       get :status       # GET /clientes/:id/status
