@@ -1,9 +1,34 @@
+# RAILS (backend)
 cd locadora
-gem install rails
-rvm install "ruby-3.3.4"
 bundle install
-./bin/rails server
+rails s
 
+# VITE (frontend)
 cd frontend
 npm install
 npx vite
+
+# PODMAN:
+# Subir todos os containers (MariaDB + API)
+podman-compose up -d
+
+# Subir e fazer rebuild (se mudou algo no código)
+podman-compose up -d --build
+
+# Ver containers rodando
+podman ps
+
+# Ver status de todos os serviços do compose
+podman-compose ps
+
+# Parar todos os containers (mas mantém os dados)
+podman-compose down
+
+# Rodar migrations no Rails
+podman-compose exec api rails db:migrate
+
+# Entrar no console do Rails
+podman-compose exec api rails console
+
+# Entrar no banco de dados
+podman-compose exec db mariadb -uadmin -p123 locacao_midias

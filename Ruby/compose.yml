@@ -1,22 +1,45 @@
 services:
   db:
     # MariaDB database service
-    image: mariadb:latest
+    image: docker.io/library/mariadb:latest
     environment:
-      # Database access credentials and schema name
       MYSQL_ROOT_PASSWORD: admin123
       MYSQL_DATABASE: locacao_midias
       MYSQL_USER: admin
       MYSQL_PASSWORD: 123
     ports:
-      # Expose the database port to the host machine
       - "3306:3306"
     networks:
       - appnet
     volumes:
       - ./database/locacao_midias.sql:/docker-entrypoint-initdb.d/seed.sql
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  api:
+    # Rails API backend
+    build:
+      context: ./locadora
+      dockerfile: ../Dockerfile.dev
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: admin
+      DATABASE_PASSWORD: 123
+      DATABASE_NAME: locacao_midias
+      RAILS_ENV: development
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - appnet
+    volumes:
+      - ./locadora:/rails
 
 # Define the custom bridge network
 networks:
