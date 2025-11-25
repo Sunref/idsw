@@ -838,21 +838,26 @@ const CrudResource = ({ config }) => {
                                             </SelectContent>
                                         </Select>
                                     ) : field.type === "multi-select" ? (
-                                        <select
-                                            multiple
-                                            className="flex h-32 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-black"
-                                            value={formValues[field.name] || []}
-                                            onChange={(e) => {
-                                                const values = Array.from(e.target.selectedOptions, option => option.value);
-                                                setFormValues((prev) => ({ ...prev, [field.name]: values }));
-                                            }}
-                                        >
-                                            {(field.options ?? selectOptions[field.name] ?? []).map((option) => (
-                                                <option key={option.value} value={option.value}>
-                                                    {option.label}
-                                                </option>
-                                            ))}
-                                        </select>
+                                        <div className="space-y-1">
+                                            <select
+                                                multiple
+                                                className="flex h-32 w-full rounded-md border border-white/10 bg-slate-950 px-3 py-2 text-sm text-white placeholder:text-white/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
+                                                value={formValues[field.name] || []}
+                                                onChange={(e) => {
+                                                    const values = Array.from(e.target.selectedOptions, option => option.value);
+                                                    setFormValues((prev) => ({ ...prev, [field.name]: values }));
+                                                }}
+                                            >
+                                                {(field.options ?? selectOptions[field.name] ?? []).map((option) => (
+                                                    <option key={option.value} value={option.value} className="py-1">
+                                                        {option.label}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <p className="text-xs text-white/50">
+                                                Segure a tecla Ctrl (ou Cmd no Mac) para selecionar múltiplos itens.
+                                            </p>
+                                        </div>
                                     ) : (
                                         <Input
                                             id={field.name}
