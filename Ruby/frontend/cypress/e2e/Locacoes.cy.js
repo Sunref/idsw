@@ -29,6 +29,19 @@ describe("CRUD de Locações", () => {
       .first()
       .click({ force: true });
 
+    // Seleciona exemplares (multi-select)
+    cy.contains("label", "Exemplares")
+      .parent()
+      .find("select option", { timeout: 10000 })
+      .should("have.length.at.least", 1)
+      .then(($options) => {
+        const values = [...$options].map((o) => o.value).slice(0, 2);
+        cy.contains("label", "Exemplares")
+          .parent()
+          .find("select")
+          .select(values, { force: true });
+      });
+
     cy.contains("label", "Situação")
       .parent()
       .find('button[role="combobox"]')

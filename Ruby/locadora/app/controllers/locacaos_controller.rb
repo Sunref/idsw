@@ -52,15 +52,30 @@ class LocacaosController < ApplicationController
   end
 
   # POST /locacaos
-  # Cria locação simples (sem itens)
+  # Cria locação com itens (exemplares)
   def create
-    locacao = Locacao.new(locacao_params)
+    locacao_params_clean = locacao_params.except(:exemplar_ids)
+    exemplar_ids = locacao_params[:exemplar_ids]
 
-    if locacao.save
-      render json: locacao.as_json(methods: [:valor_total, :status]), status: :created
-    else
-      render json: { errors: locacao.errors.full_messages }, status: :unprocessable_entity
+    ActiveRecord::Base.transaction do
+      @locacao = Locacao.new(locacao_params_clean)
+
+      if @locacao.save
+        if exemplar_ids.present?
+          exemplar_ids.each do |exemplar_id|
+            exemplar = Exemplar.find(exemplar_id)
+            valor = exemplar.midia.classificacao_interna.valor_aluguel
+            ItemLocacao.create!(locacao: @locacao, exemplar: exemplar, valor: valor)
+          end
+        end
+        render json: @locacao.as_json(methods: [:valor_total, :status]), status: :created
+      else
+        render json: { errors: @locacao.errors.full_messages }, status: :unprocessable_entity
+        raise ActiveRecord::Rollback
+      end
     end
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { errors: ["Exemplar não encontrado: #{e.message}"] }, status: :unprocessable_entity
   end
 
   # POST /locacaos/with_items
@@ -232,7 +247,8 @@ class LocacaosController < ApplicationController
       :data_inicio,
       :data_fim,
       :cancelada,
-      :cliente_id
+      :cliente_id,
+      exemplar_ids: []
     )
   end
 end

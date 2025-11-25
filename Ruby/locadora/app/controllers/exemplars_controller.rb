@@ -3,8 +3,8 @@ class ExemplarsController < ApplicationController
 
   # GET /exemplars
   def index
-    exemplars = Exemplar.all
-    render json: exemplars
+    exemplars = Exemplar.includes(:midia).all
+    render json: exemplars.as_json(include: { midia: { only: [:titulo] } })
   end
 
   # GET /exemplars/1

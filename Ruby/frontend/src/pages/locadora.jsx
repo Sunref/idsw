@@ -61,7 +61,7 @@ const formatCurrency = (value) => {
 const buildInitialValues = (config) => {
     const initial = {};
     config.formFields.forEach((field) => {
-        initial[field.name] = field.defaultValue ?? "";
+        initial[field.name] = field.defaultValue ?? (field.type === "multi-select" ? [] : "");
     });
     return initial;
 };
@@ -285,6 +285,17 @@ const RESOURCE_CONFIGS = {
                     endpoint: "clientes",
                     labelFn: (cliente) => `${cliente.nome} ${cliente.sobrenome}`,
                     valueKey: "id",
+                },
+            },
+            {
+                name: "exemplar_ids",
+                label: "Exemplares",
+                type: "multi-select",
+                required: true,
+                optionsResource: {
+                    endpoint: "exemplares",
+                    labelFn: (exemplar) => `${exemplar.midia?.titulo ?? "Mídia desconhecida"} (Cód: ${exemplar.codigo_interno})`,
+                    valueKey: "codigo_interno",
                 },
             },
             { name: "data_inicio", label: "Data de início", type: "date", required: true },
@@ -557,7 +568,7 @@ const CrudResource = ({ config }) => {
 
     const loadSelectOptions = useCallback(async () => {
         const selectFields = config.formFields.filter(
-            (field) => field.type === "select" && field.optionsResource,
+            (field) => (field.type === "select" || field.type === "multi-select") && field.optionsResource,
         );
 
         if (!selectFields.length) return;
@@ -641,6 +652,8 @@ const CrudResource = ({ config }) => {
             }
             if (field.type === "select") {
                 values[field.name] = `${value}`;
+            } else if (field.type === "multi-select") {
+                values[field.name] = value ?? [];
             } else {
                 values[field.name] = value;
             }
@@ -824,6 +837,22 @@ const CrudResource = ({ config }) => {
                                                 ))}
                                             </SelectContent>
                                         </Select>
+                                    ) : field.type === "multi-select" ? (
+                                        <select
+                                            multiple
+                                            className="flex h-32 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 text-black"
+                                            value={formValues[field.name] || []}
+                                            onChange={(e) => {
+                                                const values = Array.from(e.target.selectedOptions, option => option.value);
+                                                setFormValues((prev) => ({ ...prev, [field.name]: values }));
+                                            }}
+                                        >
+                                            {(field.options ?? selectOptions[field.name] ?? []).map((option) => (
+                                                <option key={option.value} value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
                                     ) : (
                                         <Input
                                             id={field.name}
